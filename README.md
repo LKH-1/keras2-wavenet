@@ -15,7 +15,7 @@ Please check out [Horovod for details](https://github.com/uber/horovod)
 
 [Listen to a sample 🎶!](https://github.com/imdatsolak/keras2-wavenet.git)
 
-##Generate your own samples:
+## Generate your own samples:
 
 ```$ KERAS_BACKEND=tensorflow python2 wavenet.py predict with models/run_20160920_120916/config.json predict_seconds=1```~~
 
