@@ -5,6 +5,12 @@ This is the based on [Keras WaveNet implementation](https://github.com/basveelin
 
 I have also added a wavenet_mgpu.py to train on multiple GPUs using Horovod, but this has not been fully tested yet.
 
+I use the following command to train on my DUAL-GPU (NVidia GeForce 1080 Ti) using Horovod & OpenMPI:
+    
+    /usr/local/bin/mpirun -np 2 -H localhost:2 -bind-to none -map-by slot -x NCCL_DEBUG=INFO -x LD_LIBRARY_PATH -mca btl_tcp_if_exclude eno1 python wavenet_mgpu.py
+
+The ``-mca btl_tcp_if_exclude eno1`` just means that OpenMPI should not listen on that interface as that one is not configured on my machine...
+
 Please check out [Horovod for details](https://github.com/uber/horovod)
 
 [Listen to a sample 🎶!](https://soundcloud.com/basveeling/wavenet-sample)
