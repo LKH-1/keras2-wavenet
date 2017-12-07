@@ -1,12 +1,17 @@
 # WaveNet implementation in Keras
 Based on https://deepmind.com/blog/wavenet-generative-model-raw-audio/ and https://arxiv.org/pdf/1609.03499.pdf.
 
+This is the based on [Keras WaveNet implementation](https://github.com/basveeling/wavenet/) for Keras 2 and Tensorflow.
+
+I have also added a wavenet_mgpu.py to train on multiple GPUs using Horovod, but this has not been fully tested yet.
+
+Please check out [Horovod for details](https://github.com/uber/horovod)
 
 [Listen to a sample 🎶!](https://soundcloud.com/basveeling/wavenet-sample)
 
 ~~Generate your own samples:
 
-```$ KERAS_BACKEND=theano python2 wavenet.py predict with models/run_20160920_120916/config.json predict_seconds=1```~~
+```$ KERAS_BACKEND=tensorflow python2 wavenet.py predict with models/run_20160920_120916/config.json predict_seconds=1```~~
 EDIT: The pretrained model had to be removed from the repository as it wasn't compatible with recent changes.
 
 ## Installation:
@@ -36,7 +41,7 @@ Using the tensorflow backend is not recommended at this time, see [this issue](h
 Once the first model checkpoint is created, you can start sampling.
 
 Run:
-```$ KERAS_BACKEND=theano python2 wavenet.py predict with models/<your_run_folder>/config.json predict_seconds=1```
+```$ KERAS_BACKEND=tensorflow python2 wavenet.py predict with models/<your_run_folder>/config.json predict_seconds=1```
 
 The latest model checkpoint will be retrieved and used to sample. The sample will be streamed to `[run_folder]/samples`, you can start listening when the first sample is generated.
 
@@ -48,26 +53,26 @@ The latest model checkpoint will be retrieved and used to sample. The sample wil
 - `predict_initial_input`: string: Path to a wav file, for which the first `fragment_length` samples are used as initial input.
 
 e.g.:
-```$ KERAS_BACKEND=theano python2 wavenet.py predict with models/[run_folder]/config.json predict_seconds=1```
+```$ KERAS_BACKEND=tensorflow python2 wavenet.py predict with models/[run_folder]/config.json predict_seconds=1```
 
 ## Training:
-```$ KERAS_BACKEND=theano python2 wavenet.py```
+```$ KERAS_BACKEND=tensorflow python2 wavenet.py```
 
 Or for a smaller network (less channels per layer).
-```$ KERAS_BACKEND=theano python2 wavenet.py with small```
+```$ KERAS_BACKEND=tensorflow python2 wavenet.py with small```
 
 ### VCTK:
 In order to use the VCTK dataset, first download the dataset by running `vctk/download_vctk.sh`.
 
 Training is done with:
-```$ KERAS_BACKEND=theano python2 wavenet.py with vctkdata```
+```$ KERAS_BACKEND=tensorflow python2 wavenet.py with vctkdata```
 
 For smaller network:
-```$ KERAS_BACKEND=theano python2 wavenet.py with vctkdata small```
+```$ KERAS_BACKEND=tensorflow python2 wavenet.py with vctkdata small```
 
 ### Options:
 Train with different configurations:
-```$ KERAS_BACKEND=theano python2 wavenet.py with 'option=value' 'option2=value'```
+```$ KERAS_BACKEND=tensorflow python2 wavenet.py with 'option=value' 'option2=value'```
 Available options:
 ```
   batch_size = 16
