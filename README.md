@@ -1,7 +1,7 @@
 # WaveNet implementation in Keras2
 Based on https://deepmind.com/blog/wavenet-generative-model-raw-audio/ and https://arxiv.org/pdf/1609.03499.pdf.
 
-This is the based on [Keras WaveNet implementation](https://github.com/imdatsolak/keras2-wavenet.git) for Keras 2 and Tensorflow.
+This is the based on [Keras WaveNet implementation](https://github.com/basveeling/wavenet/) for Keras 2 and Tensorflow.
 
 I have also added a wavenet_mgpu.py to train on multiple GPUs using Horovod, but this has not been fully tested yet, but it seems to work, though there is currently *no support* for predicting with multiple GPUs. I may add it over time...
 
