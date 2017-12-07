@@ -1,9 +1,9 @@
-# WaveNet implementation in Keras
+# WaveNet implementation in Keras2
 Based on https://deepmind.com/blog/wavenet-generative-model-raw-audio/ and https://arxiv.org/pdf/1609.03499.pdf.
 
-This is the based on [Keras WaveNet implementation](https://github.com/basveeling/wavenet/) for Keras 2 and Tensorflow.
+This is the based on [Keras WaveNet implementation](https://github.com/imdatsolak/keras2-wavenet.git) for Keras 2 and Tensorflow.
 
-I have also added a wavenet_mgpu.py to train on multiple GPUs using Horovod, but this has not been fully tested yet.
+I have also added a wavenet_mgpu.py to train on multiple GPUs using Horovod, but this has not been fully tested yet, but it seems to work, though there is currently *no support* for predicting with multiple GPUs. I may add it over time...
 
 I use the following command to train on my DUAL-GPU (NVidia GeForce 1080 Ti) using Horovod & OpenMPI:
     
@@ -13,12 +13,12 @@ The ``-mca btl_tcp_if_exclude eno1`` just means that OpenMPI should not listen o
 
 Please check out [Horovod for details](https://github.com/uber/horovod)
 
-[Listen to a sample 🎶!](https://soundcloud.com/basveeling/wavenet-sample)
+[Listen to a sample 🎶!](https://github.com/imdatsolak/keras2-wavenet.git)
 
-~~Generate your own samples:
+##Generate your own samples:
 
 ```$ KERAS_BACKEND=tensorflow python2 wavenet.py predict with models/run_20160920_120916/config.json predict_seconds=1```~~
-EDIT: The pretrained model had to be removed from the repository as it wasn't compatible with recent changes.
+
 
 ## Installation:
 Activate a new python2 virtualenv (recommended):
@@ -31,12 +31,10 @@ source wavenet/bin/activate
 Clone and install requirements.
 ```bash
 cd ~
-git clone https://github.com/basveeling/wavenet.git
+git clone https://github.com/imdatsolak/keras2-wavenet.git
 cd wavenet
 pip install -r requirements.txt
 ```
-
-Using the tensorflow backend is not recommended at this time, see [this issue](https://github.com/basveeling/wavenet/issues/7)
 
 ## Dependencies:
 - [Sacred](https://github.com/IDSIA/sacred) is used for managing training and sampling. Take a look at the [documentation](http://sacred.readthedocs.io/en/latest/) for more information.
