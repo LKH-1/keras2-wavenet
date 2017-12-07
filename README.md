@@ -17,24 +17,21 @@ Please check out [Horovod for details](https://github.com/uber/horovod)
 
 ## Generate your own samples:
 
-```$ KERAS_BACKEND=tensorflow python2 wavenet.py predict with models/run_20160920_120916/config.json predict_seconds=1```~~
+    $ KERAS_BACKEND=tensorflow python2 wavenet.py predict with models/run_20160920_120916/config.json predict_seconds=1
 
 
 ## Installation:
 Activate a new python2 virtualenv (recommended):
-```bash
-pip install virtualenv
-mkdir ~/virtualenvs && cd ~/virtualenvs
-virtualenv wavenet
-source wavenet/bin/activate
-```
+    pip install virtualenv
+    mkdir ~/virtualenvs && cd ~/virtualenvs
+    virtualenv wavenet
+    source wavenet/bin/activate
+
 Clone and install requirements.
-```bash
-cd ~
-git clone https://github.com/imdatsolak/keras2-wavenet.git
-cd wavenet
-pip install -r requirements.txt
-```
+    cd ~
+    git clone https://github.com/imdatsolak/keras2-wavenet.git
+    cd wavenet
+    pip install -r requirements.txt
 
 ## Dependencies:
 - [Sacred](https://github.com/IDSIA/sacred) is used for managing training and sampling. Take a look at the [documentation](http://sacred.readthedocs.io/en/latest/) for more information.
@@ -45,7 +42,7 @@ pip install -r requirements.txt
 Once the first model checkpoint is created, you can start sampling.
 
 Run:
-```$ KERAS_BACKEND=tensorflow python2 wavenet.py predict with models/<your_run_folder>/config.json predict_seconds=1```
+    $ KERAS_BACKEND=tensorflow python2 wavenet.py predict with models/<your_run_folder>/config.json predict_seconds=1
 
 The latest model checkpoint will be retrieved and used to sample. The sample will be streamed to `[run_folder]/samples`, you can start listening when the first sample is generated.
 
@@ -57,26 +54,27 @@ The latest model checkpoint will be retrieved and used to sample. The sample wil
 - `predict_initial_input`: string: Path to a wav file, for which the first `fragment_length` samples are used as initial input.
 
 e.g.:
-```$ KERAS_BACKEND=tensorflow python2 wavenet.py predict with models/[run_folder]/config.json predict_seconds=1```
+    $ KERAS_BACKEND=tensorflow python2 wavenet.py predict with models/[run_folder]/config.json predict_seconds=1
 
 ## Training:
-```$ KERAS_BACKEND=tensorflow python2 wavenet.py```
+    $ KERAS_BACKEND=tensorflow python2 wavenet.py
 
 Or for a smaller network (less channels per layer).
-```$ KERAS_BACKEND=tensorflow python2 wavenet.py with small```
+    $ KERAS_BACKEND=tensorflow python2 wavenet.py with small
 
 ### VCTK:
 In order to use the VCTK dataset, first download the dataset by running `vctk/download_vctk.sh`.
 
 Training is done with:
-```$ KERAS_BACKEND=tensorflow python2 wavenet.py with vctkdata```
+    $ KERAS_BACKEND=tensorflow python2 wavenet.py with vctkdata
 
 For smaller network:
-```$ KERAS_BACKEND=tensorflow python2 wavenet.py with vctkdata small```
+    $ KERAS_BACKEND=tensorflow python2 wavenet.py with vctkdata small
 
 ### Options:
 Train with different configurations:
-```$ KERAS_BACKEND=tensorflow python2 wavenet.py with 'option=value' 'option2=value'```
+    $ KERAS_BACKEND=tensorflow python2 wavenet.py with 'option=value' 'option2=value'
+
 Available options:
 ```
   batch_size = 16
