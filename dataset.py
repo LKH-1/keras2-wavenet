@@ -13,8 +13,12 @@ from picklable_itertools import cycle
 from picklable_itertools.extras import partition_all
 from tqdm import tqdm
 
+g_multi_gpu = False
 
-# TODO: make SACRED ingredient.
+def set_multi_gpu(mGPU = False):
+    global g_multi_gpu
+    g_multi_gpu = mGPU
+
 def one_hot(x):
     return np.eye(256, dtype='uint8')[x.astype('uint8')]
 
@@ -38,10 +42,23 @@ def select_generator(set_name, random_train_batches, full_sequences, fragment_le
 
 def batch_generator(full_sequences, fragment_length, batch_size, fragment_stride, nb_output_bins, randomize_batch_order, _rnd):
     indices = list(fragment_indices(full_sequences, fragment_length, batch_size, fragment_stride, nb_output_bins))
+    global g_multi_gpu
+    if g_multi_gpu:
+        import horovod.keras as hvd
+        gpu_count = hvd.size()
+        current_gpu = hvd.rank()
+    else:
+        gpu_count = 1
+        current_gpu = 0
+
     if randomize_batch_order:
         _rnd.shuffle(indices)
 
-    batches = cycle(partition_all(batch_size, indices))
+    batches_parted = [batch for batch in partition_all(batch_size, indices)]
+    start_index = len(batches_parted) // gpu_count * current_gpu
+    batches_gpu = batches_parted[start_index:]
+
+    batches = cycle(batches_gpu)
     for batch in batches:
         if len(batch) < batch_size:
             continue

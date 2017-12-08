@@ -11,7 +11,6 @@ import keras.backend as K
 import numpy as np
 import scipy.io.wavfile
 import scipy.signal
-# import theano
 from keras import layers
 from keras import metrics
 from keras import objectives
@@ -69,7 +68,7 @@ def config():
         'epsilon': None
     }
     learn_all_outputs = True
-    random_train_batches = True
+    random_train_batches = False
     randomize_batch_order = True  # Only effective if not using random train batches
     train_with_soft_target_stdev = None  # float to make targets a gaussian with stdev.
 
@@ -473,6 +472,9 @@ def draw_sample(output_dist, sample_temperature, sample_argmax, _rnd):
 def main(run_dir, data_dir, nb_epoch, early_stopping_patience, desired_sample_rate, fragment_length, batch_size,
          fragment_stride, nb_output_bins, keras_verbose, _log, seed, _config, debug, learn_all_outputs,
          train_only_in_receptive_field, _run, use_ulaw, train_with_soft_target_stdev):
+
+    dataset.set_multi_gpu(True)
+
     if run_dir is None:
         if not os.path.exists("models"):
             os.mkdir("models")
@@ -552,8 +554,5 @@ def main(run_dir, data_dir, nb_epoch, early_stopping_patience, desired_sample_ra
                         validation_data=data_generators['test'],
                         validation_steps=nb_examples['test'] // hvd.size(),
                         callbacks=callbacks,
-                        verbose=keras_verbose)
-
-
-
+                        verbose=keras_verbose if hvd.rank() == 0 else 0)
 
